@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
@@ -7,10 +8,10 @@ module.exports = {
   mode: 'development',
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    port: 3000,
+    port: 3002,
   },
   output: {
-    publicPath: "http://localhost:3000/",
+    publicPath: "http://localhost:3002/", // Added this
   },
   module: {
     rules: [
@@ -26,11 +27,12 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'app1',
-      library: { type: 'var', name: 'app1' },
-      remotes: {
-        app2: 'app2',
-        app3: 'app3',
+      name: 'app3',
+      library: { type: 'var', name: 'app3' },
+      filename: 'remoteEntry.js',
+      exposes: {
+        // expose each component you want 
+        './ContactForm': './src/components/ContactForm',
       },
       shared: ['react', 'react-dom'],
     }),

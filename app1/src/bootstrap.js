@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const Counter = React.lazy(() => import('app2/Counter'));
+const ContactForm = React.lazy(() => import('app3/ContactForm'));
+
+const submitLead = (e) => {
+  e.preventDefault();
+  console.log('app1 submit!');
+}
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,6 +20,9 @@ function App() {
           onIncrement={() => setCount(count + 1)}
           onDecrement={() => setCount(count - 1)}
         />
+      </React.Suspense>
+      <React.Suspense fallback='Loading ContactForm...'>
+        <ContactForm onSubmit={submitLead} />
       </React.Suspense>
     </>
   );

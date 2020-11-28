@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
@@ -33,6 +32,9 @@ module.exports = {
       exposes: {
         // expose each component you want 
         './Counter': './src/components/Counter',
+      },
+      remotes: {
+        app3: 'app3',
       },
       shared: ['react', 'react-dom'],
     }),
